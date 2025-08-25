@@ -32,7 +32,7 @@ const Index = () => {
   }, [latestBlockId]);
 
   return (
-    <div className="min-h-screen bg-gradient-crypto">
+    <div className="min-h-screen bg-gradient-casino">
       <div className="relative">
         {/* Header */}
         <Header 
@@ -53,11 +53,18 @@ const Index = () => {
           </section>
         </div>
         
-        {/* Background decorative elements */}
+        {/* Casino atmosphere decorative elements */}
         <div className="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
-          <div className="absolute top-1/4 -right-32 w-64 h-64 rounded-full bg-primary/5 blur-3xl animate-float" />
-          <div className="absolute bottom-1/4 -left-32 w-64 h-64 rounded-full bg-accent/5 blur-3xl animate-float" style={{ animationDelay: "1s" }} />
-          <div className="absolute top-3/4 right-1/4 w-32 h-32 rounded-full bg-electric-purple/5 blur-2xl animate-float" style={{ animationDelay: "2s" }} />
+          {/* Floating casino chips */}
+          <div className="absolute top-1/4 -right-32 w-64 h-64 rounded-full bg-primary/10 blur-3xl animate-float" />
+          <div className="absolute bottom-1/4 -left-32 w-64 h-64 rounded-full bg-accent/10 blur-3xl animate-float" style={{ animationDelay: "1s" }} />
+          <div className="absolute top-3/4 right-1/4 w-32 h-32 rounded-full bg-casino-gold/10 blur-2xl animate-float" style={{ animationDelay: "2s" }} />
+          
+          {/* Scattered casino elements */}
+          <div className="absolute top-10 left-10 text-6xl opacity-5 animate-spin-roulette">🎰</div>
+          <div className="absolute top-1/3 right-10 text-4xl opacity-10 animate-float">🃏</div>
+          <div className="absolute bottom-20 left-1/4 text-5xl opacity-5 animate-chip-bounce">🎲</div>
+          <div className="absolute bottom-40 right-1/3 text-3xl opacity-10 animate-casino-flash">💰</div>
         </div>
       </div>
     </div>

@@ -46,10 +46,14 @@ export const ConfirmedBlocks = ({ blocks }: ConfirmedBlocksProps) => {
   return (
     <div className="space-y-6">
       <div className="flex items-center gap-3 mb-6">
-        <CheckCircle className="w-6 h-6 text-primary" />
-        <h2 className="text-2xl font-bold text-foreground">Confirmed Blocks</h2>
-        <Badge variant="secondary" className="bg-primary/20 text-primary border-primary/30">
-          {blocks.length} Confirmed
+        <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center animate-casino-flash">
+          <span className="text-casino-black font-bold">🏆</span>
+        </div>
+        <h2 className="text-2xl font-bold text-foreground" style={{ fontFamily: 'Playfair Display, serif' }}>
+          🎉 Winning Tables - Confirmed Blocks 🎉
+        </h2>
+        <Badge variant="secondary" className="bg-primary/20 text-primary border-primary/30 animate-pulse-glow">
+          {blocks.length} Winners
         </Badge>
       </div>
 
@@ -57,56 +61,62 @@ export const ConfirmedBlocks = ({ blocks }: ConfirmedBlocksProps) => {
         {blocks.map((block, index) => (
           <Card 
             key={block.id}
-            className="bg-gradient-to-br from-card/90 to-card/70 border-primary/30 backdrop-blur-sm hover:border-primary/50 transition-all duration-300 animate-fade-in"
+            className="casino-card hover:animate-casino-flash transition-all duration-300 animate-fade-in relative overflow-hidden"
             style={{ animationDelay: `${index * 150}ms` }}
           >
-            <div className="p-6">
-              {/* Block header */}
+            {/* Winner decorations */}
+            <div className="absolute top-2 left-2 text-2xl opacity-30 animate-float">🏆</div>
+            <div className="absolute top-2 right-2 text-2xl opacity-30 animate-float" style={{ animationDelay: '1s' }}>💰</div>
+            <div className="absolute bottom-2 left-2 text-2xl opacity-30 animate-float" style={{ animationDelay: '2s' }}>🎰</div>
+            <div className="absolute bottom-2 right-2 text-2xl opacity-30 animate-float" style={{ animationDelay: '0.5s' }}>🃏</div>
+            
+            <div className="p-6 relative">
+              {/* Winner header with golden seal */}
               <div className="flex items-start justify-between mb-6">
                 <div className="flex items-center gap-3">
-                  <div className="text-2xl font-bold text-primary">
-                    #{block.id}
+                  <div className="w-16 h-16 rounded-full bg-primary flex items-center justify-center animate-casino-flash border-4 border-casino-gold">
+                    <span className="text-2xl font-bold text-casino-black">#{block.id}</span>
                   </div>
-                  <Badge className="bg-primary/20 text-primary border-primary/30">
-                    <CheckCircle className="w-3 h-3 mr-1" />
-                    Confirmed
+                  <Badge className="bg-primary/90 text-casino-black border-primary animate-pulse-glow">
+                    <span className="mr-1">🏆</span>
+                    WINNER - CONFIRMED
                   </Badge>
                 </div>
-                <div className="text-right">
-                  <div className="text-sm text-muted-foreground">Confirmed at</div>
-                  <div className="text-sm font-mono">{block.confirmedAt}</div>
-                  <div className="text-xs text-silver mt-1">
-                    Gas Used: {block.gasUsed.toLocaleString()}
+                <div className="text-right bg-casino-black/20 p-3 rounded-lg">
+                  <div className="text-sm text-muted-foreground">🏁 Game Closed</div>
+                  <div className="text-sm font-mono text-primary">{block.confirmedAt}</div>
+                  <div className="text-xs text-casino-silver mt-1">
+                    ⛽ House Fee: {block.gasUsed.toLocaleString()}
                   </div>
                 </div>
               </div>
 
-              {/* KOL Transaction Section */}
-              <Card className="bg-gradient-to-r from-primary/10 to-primary/5 border-primary/20 mb-6">
+              {/* Dealer's Final Hand */}
+              <Card className="bg-gradient-to-r from-primary/20 to-primary/10 border-primary/30 mb-6">
                 <div className="p-4">
                   <h3 className="text-lg font-semibold text-primary mb-3 flex items-center gap-2">
-                    <TrendingDown className="w-5 h-5" />
-                    KOL Transaction
+                    <span className="text-lg">🎩</span>
+                    Dealer's Final Hand
                   </h3>
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div>
-                      <div className="text-sm text-muted-foreground mb-1">KOL</div>
+                      <div className="text-sm text-muted-foreground mb-1">🎰 Dealer (KOL)</div>
                       <div className="font-semibold text-foreground">{block.kol.name}</div>
-                      <div className="text-xs text-muted-foreground font-mono">
+                      <div className="text-xs text-muted-foreground font-mono bg-casino-black/20 px-2 py-1 rounded">
                         {formatAddress(block.kol.address)}
                       </div>
-                      <div className="flex items-center gap-1 text-xs text-silver mt-1">
+                      <div className="flex items-center gap-1 text-xs text-casino-silver mt-1">
                         <Users className="w-3 h-3" />
                         {block.kol.followers.toLocaleString()} followers
                       </div>
                     </div>
                     <div>
-                      <div className="text-sm text-muted-foreground mb-1">Token</div>
+                      <div className="text-sm text-muted-foreground mb-1">🎯 Token Played</div>
                       <div className="text-xl font-bold text-accent">{block.token}</div>
                     </div>
                     <div>
-                      <div className="text-sm text-muted-foreground mb-1">Amount</div>
-                      <div className="text-xl font-bold text-primary">
+                      <div className="text-sm text-muted-foreground mb-1">💰 Winning Amount</div>
+                      <div className="text-xl font-bold text-primary animate-casino-flash">
                         {formatCurrency(block.amount)}
                       </div>
                     </div>
@@ -114,62 +124,62 @@ export const ConfirmedBlocks = ({ blocks }: ConfirmedBlocksProps) => {
                 </div>
               </Card>
 
-              {/* Copytrader Carnage Section */}
-              <Card className="bg-gradient-to-r from-destructive/20 to-destructive/10 border-destructive/30 mb-4">
+              {/* The Carnage - Player Losses */}
+              <Card className="bg-gradient-to-r from-destructive/30 to-destructive/20 border-destructive/50 mb-4">
                 <div className="p-4">
                   <h3 className="text-lg font-semibold text-destructive mb-3 flex items-center gap-2">
-                    <Flame className="w-5 h-5" />
-                    Copytrader Carnage
+                    <span className="text-lg animate-float">💀</span>
+                    The House Always Wins - Player Carnage
                   </h3>
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div className="text-center">
-                      <div className="text-2xl font-bold text-destructive">
+                      <div className="text-2xl font-bold text-destructive animate-float">
                         {block.copytraders.total.toLocaleString()}
                       </div>
-                      <div className="text-sm text-muted-foreground">Total Copytraders</div>
+                      <div className="text-sm text-muted-foreground">🎲 Total Gamblers</div>
                     </div>
                     <div className="text-center">
-                      <div className="text-2xl font-bold text-destructive">
+                      <div className="text-2xl font-bold text-destructive animate-casino-flash">
                         {formatCurrency(block.copytraders.totalLoss)}
                       </div>
-                      <div className="text-sm text-muted-foreground">Total Losses</div>
+                      <div className="text-sm text-muted-foreground">💸 House Rake</div>
                     </div>
                     <div className="text-center">
                       <div className="text-2xl font-bold text-destructive">
                         {formatCurrency(block.copytraders.avgLoss)}
                       </div>
-                      <div className="text-sm text-muted-foreground">Avg Loss/Trader</div>
+                      <div className="text-sm text-muted-foreground">📉 Avg Loss/Player</div>
                     </div>
                   </div>
                 </div>
               </Card>
 
-              {/* Top Casualties */}
+              {/* Biggest Losers - Hall of Shame */}
               <div>
                 <h4 className="text-md font-semibold text-foreground mb-3 flex items-center gap-2">
-                  <TrendingDown className="w-4 h-4 text-destructive" />
-                  Top 3 Casualties
+                  <span className="text-lg">🔥</span>
+                  Hall of Shame - Biggest Losers
                 </h4>
                 <div className="space-y-2">
                   {block.topCasualties.map((casualty, idx) => (
                     <div 
                       key={casualty.address}
-                      className="flex items-center justify-between p-3 bg-destructive/5 border border-destructive/20 rounded-lg"
+                      className="flex items-center justify-between p-3 bg-destructive/10 border border-destructive/30 rounded-lg hover:bg-destructive/20 transition-colors"
                     >
                       <div className="flex items-center gap-3">
-                        <div className="w-6 h-6 rounded-full bg-destructive/20 flex items-center justify-center text-xs font-bold text-destructive">
-                          {idx + 1}
+                        <div className="w-8 h-8 rounded-full bg-destructive/30 flex items-center justify-center text-sm font-bold text-destructive border-2 border-destructive/50">
+                          {idx === 0 ? '🥇' : idx === 1 ? '🥈' : '🥉'}
                         </div>
-                        <div className="font-mono text-sm text-muted-foreground">
+                        <div className="font-mono text-sm text-muted-foreground bg-casino-black/20 px-2 py-1 rounded">
                           {formatAddress(casualty.address)}
                         </div>
                       </div>
                       <div className="text-right">
                         <div className="font-semibold text-destructive">
-                          {formatCurrency(casualty.loss)}
+                          -{formatCurrency(casualty.loss)}
                         </div>
                         <div className="text-xs text-destructive/70">
-                          {casualty.percentage}%
+                          📉 {casualty.percentage}% loss
                         </div>
                       </div>
                     </div>
